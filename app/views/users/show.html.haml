@@ -1,0 +1,13 @@
+%h1
+  Account Summary
+
+.balance
+  %p
+    = 'Checking:' + @user.checking_balance
+    = 'Savings:' + @user.savings_balance
+    = 'Credit:' + @user.credit_balance
+
+.options
+  = link_to 'History', history_user_path
+  = link_to 'Transfer', transfer_user_path
+  = link_to 'Make Report', report_user_path

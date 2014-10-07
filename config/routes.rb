@@ -1,8 +1,15 @@
 Rails.application.routes.draw do
   root 'welcome#login'
+
   post 'login', to: 'welcome#validate', as: :check_login
 
-  resources :users
+  resources :users do
+    member do
+      get 'history'
+      get 'transfer'
+      get 'report'
+    end
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

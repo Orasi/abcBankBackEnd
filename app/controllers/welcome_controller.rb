@@ -10,7 +10,7 @@ class WelcomeController < ApplicationController
       @user = User.create_user(params[:user][:username], params[:user][:password])
       redirect_to user_path(@user.id)
     elsif @user.password == params[:user][:password]
-      redirect_to users_path(@user.id)
+      redirect_to user_path(@user.id)
     else
       redirect_to :root
     end

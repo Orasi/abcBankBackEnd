@@ -1,0 +1,50 @@
+%h1
+	You made it to the Transfer page!
+
+= form_for :transfer, method: 'post', url: transfer_user_path do |t|
+	%p
+		= t.label :date
+		= t.date_select :date, order: [:month, :day, :year], required: true, autofocus: true
+	%p
+		= t.label :transfer_amount
+		= t.text_field :amount, required: true, placeholder: 'Enter Amount'
+	%p
+		= t.label :from_account
+		= t.select(:from_account, [%w(Checking checking_balance), %w(Savings savings_balance)])
+	%p
+		= t.label :to_account
+		= t.select(:to_account, [])
+	%p
+		= t.submit 'Transfer'
+
+%table.history
+	%tr
+		%th
+			Date
+		%th
+			Amount Transferred
+		%th
+			From Account
+		%th
+			To Account
+		%th
+			Previous Balance
+		%th
+			Current Balance
+	- if @user.transfers.count > 0
+		- @user.transfers.each do |transfer|
+			%tr
+				%td
+					= transfer.date.strftime("%a, %B %d, %Y")
+				%td
+					= number_to_currency transfer.amount
+				%td
+					= transfer.from_account.split('_').first.capitalize
+				%td
+					= transfer.to_account.split('_').first.capitalize
+				%td
+					= number_to_currency transfer.prev_balance
+				%td
+					= number_to_currency transfer.new_balance
+
+= link_to 'Back', user_path(params[:id])

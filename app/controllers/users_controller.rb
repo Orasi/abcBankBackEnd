@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update,
+                                  :destroy, :history, :transfer,
+                                  :transfer_page, :report]
 
   # GET /users
   # GET /users.json
@@ -65,8 +67,20 @@ class UsersController < ApplicationController
 
   end
 
-  def transfer
+  def transfer_page
 
+  end
+
+  def transfer
+    transaction = @user.transfers.new(transfer_params)
+    transaction.prev_balance = @user.amount_in(transfer_params[:from_account])
+    transaction.new_balance = @user.amount_in(transfer_params[:from_account]) - transfer_params[:amount].to_i
+    if transaction.save
+      @user.create_transaction(transfer_params)
+      redirect_to transfer_page_user_path
+    else
+      redirect_to :root
+    end
   end
 
   def report
@@ -82,5 +96,9 @@ class UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(:username, :password)
+    end
+
+    def transfer_params
+      params.require(:transfer).permit(:date, :amount, :to_account, :from_account, :location)
     end
 end

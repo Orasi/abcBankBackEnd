@@ -10,5 +10,8 @@
 
 <%= yield %>
 
+<%- if Rails.env == 'development' %>
+    <%= debug @user %>
+<%- end %>
 </body>
 </html>

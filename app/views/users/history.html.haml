@@ -1,4 +1,37 @@
 %h1
 	History
+%table.history
+	%tr
+		%th
+			Date
+		%th
+			ID
+		%th
+			Account
+		%th
+			Amount
+		%th
+			Location
+		%th
+			Previous Balance
+		%th
+			New Balance
 
-= link_to 'Back', :back
+	- @user.transactions.reverse.each do |transaction|
+		%tr
+			%td
+				= transaction.date.strftime("%a, %B %d, %Y")
+			%td
+				= transaction_number transaction.id
+			%td
+				= transaction.account.capitalize
+			%td
+				= number_to_currency transaction.amount
+			%td
+				= transaction.location
+			%td
+				= number_to_currency transaction.prev_balance
+			%td
+				= number_to_currency transaction.new_balance
+
+= link_to 'Back', user_path(params[:id])

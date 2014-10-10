@@ -1,5 +1,43 @@
 class User < ActiveRecord::Base
   has_many :transactions
+  has_many :transfers
+
+  def total_balance(from_account, to_account, transfer_amount)
+    total_from_account = self.amount_in(from_account) - transfer_amount.to_i
+    total_to_account = self.amount_in(to_account) + transfer_amount.to_i
+    self.update_attributes(from_account => total_from_account, to_account.to_sym => total_to_account)
+  end
+
+  def amount_in(account)
+    self.send(account).to_i
+  end
+
+  def create_transaction(transfer_params)
+    setup_transaction_with transfer_params, 'from_account', 'debit'
+    setup_transaction_with transfer_params, 'to_account', transfer_params[:to_account] == 'credit_balance' ? 'debit' : 'credit'
+    self.total_balance(transfer_params[:from_account], transfer_params[:to_account], transfer_params[:amount])
+  end
+
+  def setup_transaction_with(transfer_params, account, type)
+    date = transfer_params['date(2i)'] + '/' + transfer_params['date(3i)'] + '/'+ transfer_params['date(1i)']
+    self.transactions.create(
+        amount: transfer_params[:amount],
+        date: date,
+        location: 'Transfer',
+        account: transfer_params[account.to_sym],
+        prev_balance: self.amount_in(transfer_params[account.to_sym]),
+        new_balance: self.calculate_balance(transfer_params[account.to_sym], transfer_params[:amount], type)
+    )
+  end
+
+  def calculate_balance(account, amount, operator='credit')
+    case operator
+      when 'credit'
+        self.amount_in(account) + amount.to_i
+      else
+        self.amount_in(account) - amount.to_i
+    end
+  end
 
   def self.create_user(username, password)
     u = User.create(username: username, password: password, checking_balance: 1923.18, savings_balance: 12654.83, credit_balance: 5195.78)

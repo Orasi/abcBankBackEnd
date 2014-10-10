@@ -6,7 +6,8 @@ Rails.application.routes.draw do
   resources :users do
     member do
       get 'history'
-      get 'transfer'
+      get 'transfer_page'
+      post 'transfer'
       get 'report'
     end
   end

@@ -6,13 +6,18 @@ class WelcomeController < ApplicationController
 
   def validate
     @user = User.find_by(username: params[:user][:username])
-    if @user.nil?
-      @user = User.create_user(params[:user][:username], params[:user][:password])
-      redirect_to user_path(@user.id)
-    elsif @user.password == params[:user][:password]
-      redirect_to user_path(@user.id)
-    else
-      redirect_to :root
+    respond_to do |format|
+      if @user.nil?
+        @user = User.create_user(params[:user][:username], params[:user][:password])
+        format.html { redirect_to user_path(@user.id) }
+        format.json { render json: @user }
+      elsif @user.password == params[:user][:password]
+        format.html { redirect_to user_path(@user.id) }
+        format.json { render json: @user }
+      else
+        format.html { redirect_to :root }
+        format.json { render json: nil }
+      end
     end
   end
 end

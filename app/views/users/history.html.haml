@@ -24,7 +24,7 @@
 			%td
 				= transaction_number transaction.id
 			%td
-				= transaction.account.capitalize
+				= transaction.account.split('_').first.capitalize
 			%td
 				= number_to_currency transaction.amount
 			%td

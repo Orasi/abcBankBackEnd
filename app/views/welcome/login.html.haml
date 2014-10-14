@@ -1,9 +1,11 @@
-%h1
-  Login
+.background.mobile_web
+  .black.center_vertically
+    %h1.white-text
+      Login
 
-= form_for @user, url: :check_login do |f|
-  = f.label :username
-  = f.text_field :username, required: true, autofocus: true
-  = f.label :password
-  = f.password_field :password, required: true
-  = f.submit 'Login'
+    = form_for @user, url: :check_login do |f|
+      .white-text= f.label :username
+      = f.text_field :username, required: true, autofocus: true
+      .white-text= f.label :password
+      = f.password_field :password, required: true
+      = f.submit 'Login'

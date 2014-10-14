@@ -2,43 +2,48 @@
 - transactions = @user.transactions.all unless @filter
 - account_priority, location_prority = 1, 2 unless @filter
 - account_priority, location_prority = 2, 1 if @filter
--
-.background
-  .black
-    .rounded-corner
-      .white-background
-        %h2
-          = @filter.capitalize if @filter
-          Account History
-        .account_summary
-          %table.history-table.ui-body-d.ui-shadow.table-stripe.ui-responsive{'data-role' => 'table', 'data-mode' => 'columntoggle', 'data-column-btn=theme' => 'b', 'data-column-popup-theme' => 'a' }
-            %thead
-              %tr.ui-bar-d
-                %th
-                  Date
-                %th{'data-priority' => account_priority}
-                  Account
-                %th
-                  Amount
-                %th{'data-priority' => location_prority}
-                  Location
-                %th{'data-priority' => '2'}
-                  Previous Balance
-                %th{'data-priority' => '3'}
-                  New Balance
+%div.mobile_web{'data-role'=>'page', 'data-url' => "#{request.path}"}
+  - unless @hybrid
+    %div{'data-role' => 'header', 'data-position' => 'fixed'}
+      %a.ui-btn-left{'data-icon' => 'back', 'data-rel' => 'back'} Back
+      %h1 Online Banking
+      %a.ui-btn-right{'data-icon' => 'home', 'href' => '/users/' + @id} Home
+  .background
+    .black
+      .rounded-corner
+        .white-background
+          %h2
+            = @filter.capitalize if @filter
+            Account History
+          .account_summary
+            %table.history-table.ui-body-d.ui-shadow.table-stripe.ui-responsive.table-responsive{'data-role' => 'table', 'data-mode' => 'columntoggle', 'data-column-btn=theme' => 'b', 'data-column-popup-theme' => 'a' }
+              %thead
+                %tr.ui-bar-d
+                  %th
+                    Date
+                  %th{'data-priority' => account_priority}
+                    Account
+                  %th
+                    Amount
+                  %th{'data-priority' => location_prority}
+                    Location
+                  %th{'data-priority' => '2'}
+                    Previous Balance
+                  %th{'data-priority' => '3'}
+                    New Balance
 
-              - transactions.reverse.each do |transaction|
-                %tr
-                  %td
-                    = transaction.date.strftime("%-m/%-d/%y")
-                  %td
-                    = transaction.account.split('_').first.capitalize
-                  %td
-                    = number_to_currency transaction.amount
-                  %td
-                    = transaction.location
-                  %td
-                    = number_to_currency transaction.prev_balance
-                  %td
-                    = number_to_currency transaction.new_balance
+                - transactions.reverse.each do |transaction|
+                  %tr
+                    %td
+                      = transaction.date.strftime("%-m/%-d/%y")
+                    %td
+                      = transaction.account.split('_').first.capitalize
+                    %td
+                      = number_to_currency transaction.amount
+                    %td
+                      = transaction.location
+                    %td
+                      = number_to_currency transaction.prev_balance
+                    %td
+                      = number_to_currency transaction.new_balance
 

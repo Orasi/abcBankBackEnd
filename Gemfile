@@ -44,3 +44,4 @@ end
 gem 'jquery_mobile_rails'
 gem 'haml'
 gem 'capistrano-rails'
+gem 'useragent'

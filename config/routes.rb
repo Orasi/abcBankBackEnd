@@ -2,14 +2,16 @@ Rails.application.routes.draw do
   root 'welcome#login'
 
   post 'login', to: 'welcome#validate', as: :check_login
-
+  get 'login', to: 'welcome#login'
   resources :users do
     member do
+
       get 'history'
       get 'history/:account' => 'users#history', as: :account_summary
       get 'transfer_page'
       post 'transfer'
       get 'report'
+      get '(/:format)' => 'users#show'
     end
   end
 

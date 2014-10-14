@@ -1,38 +1,50 @@
-.background
-  .black
+%div.mobile_web{'data-role'=>'page', 'data-url' => "#{request.path}"}
+  - unless @hybrid
+    %div{'data-role' => 'header', 'data-position' => 'fixed'}
+      %a.ui-btn-left{'data-icon' => 'back', 'data-rel' => 'back'} Back
+      %h1 Online Banking
+      %a.ui-btn-right{'data-icon' => 'home', 'href' => '/users/' + @id} Home
+  .background
+    .black
 
-    .ui-corner-all.rounded-corner
-      .ui-bar.ui-bar-a
-        %h2
-          Account Summaries
-      .white-background
-        .account_summary
-          %table.balance-table
-            %tr
-              %td
-                Account
-              %td
-                Balance
-          .account_history
-            = link_to account_summary_user_path(account: 'checking'), class: 'ui-btn account-history', 'data-transition' => 'flip' do
-              %table.wide
-                %tr
-                  %td Checking
-                  %td= number_to_currency(@user.checking_balance)
-            = link_to account_summary_user_path(account: 'saving'), class: 'ui-btn account-history', 'data-transition' => 'flip' do
-              %table.wide
-                %tr
-                  %td Savings
-                  %td= number_to_currency(@user.savings_balance)
-            = link_to account_summary_user_path(account: 'credit'), class: 'ui-btn account-history', 'data-transition' => 'flip' do
-              %table.wide
-                %tr
-                  %td Credit Card
-                  %td= number_to_currency(@user.credit_balance)
+      .ui-corner-all.rounded-corner
+        .ui-bar.ui-bar-a
+          %h2
+            Account Summaries
+            =@hybrid
+        .white-background
+          .account_summary
+            %table.balance-table
+              %tr
+                %td
+                  Account
+                %td
+                  Balance
+            .account_history
+              = link_to account_summary_user_path(account: 'checking', format: @hybrid), class: 'ui-btn account-history', 'data-transition' => 'flip' do
+                %table.wide
+                  %tr
+                    %td Checking
+                    %td= number_to_currency(@user.checking_balance)
+              = link_to account_summary_user_path(account: 'saving', format: @hybrid), class: 'ui-btn account-history', 'data-transition' => 'flip' do
+                %table.wide
+                  %tr
+                    %td Savings
+                    %td= number_to_currency(@user.savings_balance)
+              = link_to account_summary_user_path(account: 'credit', format: @hybrid), class: 'ui-btn account-history', 'data-transition' => 'flip' do
+                %table.wide
+                  %tr
+                    %td Credit Card
+                    %td= number_to_currency(@user.credit_balance)
 
-    .balance
+      .balance
 
-      .options
-        = link_to 'History', history_user_path, class: 'ui-shadow ui-btn ui-corner-all nav-buttons', 'data-transition' => 'flip'
-        = link_to 'Transfer', transfer_page_user_path, class: 'ui-shadow ui-btn ui-corner-all nav-buttons', 'data-transition' => 'flip'
-        = link_to 'Make Report', report_user_path, class: 'ui-shadow ui-btn ui-corner-all nav-buttons', 'data-transition' => 'flip'
+        .options
+          = link_to 'History', history_user_path(format: @hybrid), class: 'ui-shadow ui-btn ui-corner-all nav-buttons', 'data-transition' => 'flip'
+          = link_to 'Transfer', transfer_page_user_path(format: @hybrid), class: 'ui-shadow ui-btn ui-corner-all nav-buttons', 'data-transition' => 'flip'
+          = link_to 'Make Report', report_user_path(format: @hybrid), class: 'ui-shadow ui-btn ui-corner-all nav-buttons', 'data-transition' => 'flip'
+
+
+  :javascript
+    if ("#{@hybrid}" != "true")
+      $('.ui-btn').attr('data-transition', 'flow')

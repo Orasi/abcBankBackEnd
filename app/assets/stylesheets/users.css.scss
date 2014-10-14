@@ -4,6 +4,9 @@
 .ui-page, .ui-body-c, .ui-page-active,  .ui-mobile-viewport
 {
   background: transparent;
+  margin: 0px;
+  height: 100%
+
 }
 
 h2{
@@ -13,6 +16,7 @@ h2{
   padding: 10px;
   height: 100% !important;
   vertical-align: middle !important;
+  height: 100%;
 }
 
 .black {
@@ -71,4 +75,8 @@ td{
 .transfer-fields{
   margin:15px;
   padding: 15px;
+}
+.mobile_web{
+  background-image: image_url('online_banking.png') !important;
+  background-size: cover;
 }

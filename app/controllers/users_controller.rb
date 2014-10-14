@@ -7,11 +7,14 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @users = User.all
+    @id = params[:id]
   end
 
   # GET /users/1
   # GET /users/1.json
   def show
+    @hybrid = true if params[:format]
+    @id = params[:id]
   end
 
   # GET /users/new
@@ -65,10 +68,13 @@ class UsersController < ApplicationController
 
   def history
     @filter = params[:account]
+    @hybrid = true if params[:format]
+    @id = params[:id]
   end
 
   def transfer_page
-
+    @hybrid = true if params[:format]
+    @id = params[:id]
   end
 
   def transfer

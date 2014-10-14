@@ -1,50 +1,46 @@
-%h1
-	You made it to the Transfer page!
+.background
+  .black
+    .white-background.transfer-fields
+      %h2 Transfers
 
-= form_for :transfer, method: 'post', url: transfer_user_path do |t|
-	%p
-		= t.label :date
-		= t.date_select :date, order: [:month, :day, :year], required: true, autofocus: true
-	%p
-		= t.label :transfer_amount
-		= t.text_field :amount, required: true, placeholder: 'Enter Amount'
-	%p
-		= t.label :from_account
-		= t.select(:from_account, [%w(Checking checking_balance), %w(Savings savings_balance)])
-	%p
-		= t.label :to_account
-		= t.select(:to_account, [])
-	%p
-		= t.submit 'Transfer'
+      = form_for :transfer, method: 'post', url: transfer_user_path do |t|
 
-%table.history
-	%tr
-		%th
-			Date
-		%th
-			Amount Transferred
-		%th
-			From Account
-		%th
-			To Account
-		%th
-			Previous Balance
-		%th
-			Current Balance
-	- if @user.transfers.count > 0
-		- @user.transfers.each do |transfer|
-			%tr
-				%td
-					= transfer.date.strftime("%a, %B %d, %Y")
-				%td
-					= number_to_currency transfer.amount
-				%td
-					= transfer.from_account.split('_').first.capitalize
-				%td
-					= transfer.to_account.split('_').first.capitalize
-				%td
-					= number_to_currency transfer.prev_balance
-				%td
-					= number_to_currency transfer.new_balance
+        = t.label "Transfer Amount"
+        = t.text_field :amount, required: true, placeholder: 'Transfer Amount', type: 'number'
 
-= link_to 'Back', user_path(params[:id])
+        = t.label :from_account
+        = t.select(:from_account, [%w(Checking checking_balance), %w(Savings savings_balance)])
+
+        = t.label :to_account
+        = t.select(:to_account, [%w(Checking checking_balance), %w(Savings savings_balance), %w(Credit credit_balance)])
+        %p
+          = t.submit 'Transfer'
+
+:javascript
+  $('#transfer_amount').focusout(function(){
+    field = $('#transfer_amount')
+    field.attr('type', 'text');
+    current_value = field.val();
+    field.val("$" + current_value)
+
+  });
+  $('#transfer_amount').on('touchstart', function() {
+    $(this).attr('type', 'number');
+  });
+
+   $('#transfer_from_account').change(function(){
+      alert('123')
+      accounts = [["Checking","checking_balance"], ["Savings","savings_balance"], ["Credit", "credit_balance"]]
+     $('#transfer_to_account option').each(function(){
+       this.remove()
+     })
+
+    $.each(accounts, function(){
+      $('#transfer_to_account').append("<option value='" + this[1] + "'>" + this[0] + "</option>") if $('#transfer_from_account option:selected').val() != this[1]
+    })
+
+   })
+
+
+
+

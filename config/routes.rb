@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :users do
     member do
       get 'history'
+      get 'history/:account' => 'users#history', as: :account_summary
       get 'transfer_page'
       post 'transfer'
       get 'report'

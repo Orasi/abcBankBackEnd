@@ -1,21 +1,74 @@
 // Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
-body, html {
+.ui-page, .ui-body-c, .ui-page-active,  .ui-mobile-viewport
+{
   background: transparent;
 }
 
-.history, tr, td {
-  border: 1px solid black;
-  border-collapse: collapse;
+h2{
+  color: #2E2F30;
+}
+.background {
+  padding: 10px;
+  height: 100% !important;
+  vertical-align: middle !important;
 }
 
-tr, td {
+.black {
   padding: 10px;
+  background: rgba(0,0,0,0.6);
+  border-radius: 8px;
+}
+a{
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.balance{
+  font-size: 150%;
 }
 
-th {
-  border: 1px solid black;
-  padding: 10px;
+.account-history{
+  background: white;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+.nav-buttons{
+  margin-top: 15px !important;
+  margin-bottom: 15px !important;
+}
+.balance-table{
+  width: 100%;
+  font-weight: bold;
+  background-color: #BBBBBB;
+}
+.account-summary{
+  padding: 0px !important;
+}
+.white-background{
+  background: white;
+}
+.wide{
+  width: 100%;
+  text-align: left;
+}
+td{
+  width: 50%
+}
+.history-table{
+  th {
+    background: #666666;
+    color: white;
+  }
+  background: white;
+  tr:nth-child(odd){
+    background-color: #BBBBBB;
+  }
+}
+.white-text{
+  color: white;
+}
+.transfer-fields{
+  margin:15px;
+  padding: 15px;
 }

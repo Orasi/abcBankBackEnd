@@ -1,37 +1,44 @@
-%h1
-	History
-%table.history
-	%tr
-		%th
-			Date
-		%th
-			ID
-		%th
-			Account
-		%th
-			Amount
-		%th
-			Location
-		%th
-			Previous Balance
-		%th
-			New Balance
+- transactions = @user.transactions.where(account: @filter) if @filter
+- transactions = @user.transactions.all unless @filter
+- account_priority, location_prority = 1, 2 unless @filter
+- account_priority, location_prority = 2, 1 if @filter
+-
+.background
+  .black
+    .rounded-corner
+      .white-background
+        %h2
+          = @filter.capitalize if @filter
+          Account History
+        .account_summary
+          %table.history-table.ui-body-d.ui-shadow.table-stripe.ui-responsive{'data-role' => 'table', 'data-mode' => 'columntoggle', 'data-column-btn=theme' => 'b', 'data-column-popup-theme' => 'a' }
+            %thead
+              %tr.ui-bar-d
+                %th
+                  Date
+                %th{'data-priority' => account_priority}
+                  Account
+                %th
+                  Amount
+                %th{'data-priority' => location_prority}
+                  Location
+                %th{'data-priority' => '2'}
+                  Previous Balance
+                %th{'data-priority' => '3'}
+                  New Balance
 
-	- @user.transactions.reverse.each do |transaction|
-		%tr
-			%td
-				= transaction.date.strftime("%a, %B %d, %Y")
-			%td
-				= transaction_number transaction.id
-			%td
-				= transaction.account.split('_').first.capitalize
-			%td
-				= number_to_currency transaction.amount
-			%td
-				= transaction.location
-			%td
-				= number_to_currency transaction.prev_balance
-			%td
-				= number_to_currency transaction.new_balance
+              - transactions.reverse.each do |transaction|
+                %tr
+                  %td
+                    = transaction.date.strftime("%-m/%-d/%y")
+                  %td
+                    = transaction.account.split('_').first.capitalize
+                  %td
+                    = number_to_currency transaction.amount
+                  %td
+                    = transaction.location
+                  %td
+                    = number_to_currency transaction.prev_balance
+                  %td
+                    = number_to_currency transaction.new_balance
 
-= link_to 'Back', user_path(params[:id])

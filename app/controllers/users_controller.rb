@@ -64,7 +64,7 @@ class UsersController < ApplicationController
   end
 
   def history
-
+    @filter = params[:account]
   end
 
   def transfer_page

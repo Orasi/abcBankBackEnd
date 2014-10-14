@@ -1,13 +1,38 @@
-%h1
-  Account Summary
+.background
+  .black
 
-.balance
-  %p
-    = 'Checking:' + @user.checking_balance
-    = 'Savings:' + @user.savings_balance
-    = 'Credit:' + @user.credit_balance
+    .ui-corner-all.rounded-corner
+      .ui-bar.ui-bar-a
+        %h2
+          Account Summaries
+      .white-background
+        .account_summary
+          %table.balance-table
+            %tr
+              %td
+                Account
+              %td
+                Balance
+          .account_history
+            = link_to account_summary_user_path(account: 'checking'), class: 'ui-btn account-history', 'data-transition' => 'flip' do
+              %table.wide
+                %tr
+                  %td Checking
+                  %td= number_to_currency(@user.checking_balance)
+            = link_to account_summary_user_path(account: 'saving'), class: 'ui-btn account-history', 'data-transition' => 'flip' do
+              %table.wide
+                %tr
+                  %td Savings
+                  %td= number_to_currency(@user.savings_balance)
+            = link_to account_summary_user_path(account: 'credit'), class: 'ui-btn account-history', 'data-transition' => 'flip' do
+              %table.wide
+                %tr
+                  %td Credit Card
+                  %td= number_to_currency(@user.credit_balance)
 
-.options
-  = link_to 'History', history_user_path
-  = link_to 'Transfer', transfer_page_user_path
-  = link_to 'Make Report', report_user_path
+    .balance
+
+      .options
+        = link_to 'History', history_user_path, class: 'ui-shadow ui-btn ui-corner-all nav-buttons', 'data-transition' => 'flip'
+        = link_to 'Transfer', transfer_page_user_path, class: 'ui-shadow ui-btn ui-corner-all nav-buttons', 'data-transition' => 'flip'
+        = link_to 'Make Report', report_user_path, class: 'ui-shadow ui-btn ui-corner-all nav-buttons', 'data-transition' => 'flip'

@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   end
 
   def setup_transaction_with(transfer_params, account, type)
-    date = transfer_params['date(2i)'] + '/' + transfer_params['date(3i)'] + '/'+ transfer_params['date(1i)']
+    date = DateTime.now.to_date
     self.transactions.create(
         amount: transfer_params[:amount],
         date: date,

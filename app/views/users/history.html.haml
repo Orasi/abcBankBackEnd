@@ -1,4 +1,4 @@
-- transactions = @user.transactions.where(account: @filter) if @filter
+- transactions = @user.transactions.where('account = ? OR account = ? or account = ?', @filter, @filter + '_balance', @filter[0..-1] + '_balance') if @filter
 - transactions = @user.transactions.all unless @filter
 - account_priority, location_prority = 1, 2 unless @filter
 - account_priority, location_prority = 2, 1 if @filter

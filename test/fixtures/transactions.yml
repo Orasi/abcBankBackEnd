@@ -5,11 +5,11 @@ one:
   location: MyString
   amount: 9.99
   prev_balance: 9.99
-  new_balace: 9.99
+  new_balance: 9.99
 
 two:
   account: MyString
   location: MyString
   amount: 9.99
   prev_balance: 9.99
-  new_balace: 9.99
+  new_balance: 9.99

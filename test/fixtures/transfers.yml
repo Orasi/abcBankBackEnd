@@ -2,14 +2,12 @@
 
 one:
   date: 2014-10-09
-  location: MyString
   from_account: MyString
   to_account: MyString
   amount: 
 
 two:
   date: 2014-10-09
-  location: MyString
   from_account: MyString
   to_account: MyString
   amount: 

@@ -1,4 +1,4 @@
-%div.mobile_web{'data-role'=>'page', 'data-url' => "#{request.path}"}
+%div.main_page{'data-role'=>'page', 'data-url' => "#{request.path}"}
   - unless @hybrid
     %div{'data-role' => 'header', 'data-position' => 'fixed'}
       %a.ui-btn-left{'data-icon' => 'back', 'data-rel' => 'back'} Back
@@ -34,6 +34,9 @@
       $(this).attr('type', 'number');
     });
 
+    if ("#{@hybrid}" != "true")
+      $('.ui-btn').attr('data-transition', 'fade')
+      $('.main_page').addClass("mobile_web")
      //$('#transfer_from_account').change(function(){
        // alert('123')
       //  accounts = [["Checking","checking_balance"], ["Savings","savings_balance"], ["Credit", "credit_balance"]]

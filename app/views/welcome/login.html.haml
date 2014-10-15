@@ -1,4 +1,4 @@
-.background.mobile_web
+.background.main_mage
   .black.center_vertically
     %h1.white-text
       ABC Bank Login
@@ -9,3 +9,8 @@
       .white-text= f.label :password
       = f.password_field :password, required: true
       = f.submit 'Login'
+
+:javascript
+  if ("#{@hybrid}" != "true")
+    $('.ui-btn').attr('data-transition', 'fade')
+    $('.main_page').addClass("mobile_web")

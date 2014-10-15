@@ -1,4 +1,4 @@
-%div.mobile_web{'data-role'=>'page', 'data-url' => "#{request.path}"}
+%div.main_page{'data-role'=>'page', 'data-url' => "#{request.path}"}
   - unless @hybrid
     %div{'data-role' => 'header', 'data-position' => 'fixed'}
       %a.ui-btn-left{'data-icon' => 'back', 'data-rel' => 'back'} Back
@@ -47,4 +47,6 @@
 
   :javascript
     if ("#{@hybrid}" != "true")
-      $('.ui-btn').attr('data-transition', 'flow')
+      $('.ui-btn').attr('data-transition', 'fade')
+      $('.main_page').addClass("mobile_web")
+

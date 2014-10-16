@@ -1,8 +1,8 @@
-- transactions = @user.transactions.where('account = ? OR account = ? or account = ?', @filter, @filter + '_balance', @filter[0..-1] + '_balance') if @filter
+- transactions = @user.transactions.where('account = ? OR account = ? or account = ?', @filter, @filter + '_balance', @filter + 's' + '_balance') if @filter
 - transactions = @user.transactions.all unless @filter
 - account_priority, location_prority = 1, 2 unless @filter
 - account_priority, location_prority = 2, 1 if @filter
-%div.main_page{'data-role'=>'page', 'data-url' => "#{request.path}"}
+%div.main_page{'data-role'=>'page', 'data-url' => "#{request.path}", 'data-dom-cache' => 'false'}
   - unless @hybrid
     %div{'data-role' => 'header', 'data-position' => 'fixed'}
       %a.ui-btn-left{'data-icon' => 'back', 'data-rel' => 'back'} Back
@@ -39,7 +39,10 @@
                     %td
                       = transaction.account.split('_').first.capitalize
                     %td
-                      = number_to_currency transaction.amount
+                      - if transaction.amount.to_s.include? "-"
+                        =  (number_to_currency transaction.amount)
+                      -else
+                        = number_to_currency transaction.amount
                     %td
                       = transaction.location
                     %td

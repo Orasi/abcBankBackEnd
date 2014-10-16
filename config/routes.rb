@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   post 'login', to: 'welcome#validate', as: :check_login
   get 'login', to: 'welcome#login'
+  get 'users/:id', to: 'users#show', as: :balances
   resources :users do
     member do
 

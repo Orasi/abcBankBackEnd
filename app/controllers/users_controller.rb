@@ -78,15 +78,19 @@ class UsersController < ApplicationController
   end
 
   def transfer
+    @hybrid = params[:hybrid]
+    params[:transfer][:amount] = params[:transfer][:amount].sub('$', '')
     transaction = @user.transfers.new(transfer_params)
     transaction.prev_balance = @user.amount_in(transfer_params[:from_account])
     transaction.new_balance = @user.amount_in(transfer_params[:from_account]) - transfer_params[:amount].to_i
     if transaction.save
       @user.create_transaction(transfer_params)
-      redirect_to transfer_page_user_path
+      flash[:success] = 'Transfer Completed'
     else
-      redirect_to :root
+      flash[:error] = 'Transfer Failed'
     end
+
+    redirect_to balances_path(format: @hybrid)
   end
 
   def report

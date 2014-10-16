@@ -19,6 +19,8 @@
 
           = t.label :to_account
           = t.select(:to_account, [%w(Checking checking_balance), %w(Savings savings_balance), %w(Credit credit_balance)])
+
+          = hidden_field_tag(:hybrid, @hybrid)
           %p
             = t.submit 'Transfer'
 

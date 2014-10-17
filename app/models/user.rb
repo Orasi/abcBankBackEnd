@@ -12,18 +12,18 @@ class User < ActiveRecord::Base
     self.send(account).to_i
   end
 
-  def create_transaction(transfer_params)
-    setup_transaction_with transfer_params, transfer_params[:amount], 'to_account', transfer_params[:to_account] == 'credit_balance' ? 'debit' : 'credit'
-    setup_transaction_with transfer_params, transfer_params[:amount].to_f * -1, 'from_account', 'debit'
+  def create_transaction(transfer_params, type)
+    setup_transaction_with transfer_params, transfer_params[:amount], 'to_account', transfer_params[:to_account] == 'credit_balance' ? 'debit' : 'credit', type
+    setup_transaction_with transfer_params, transfer_params[:amount].to_f * -1, 'from_account', 'debit', type
     self.total_balance(transfer_params[:from_account], transfer_params[:to_account], transfer_params[:amount])
   end
 
-  def setup_transaction_with(transfer_params, amount, account, type)
+  def setup_transaction_with(transfer_params, amount, account, type, location)
     date = DateTime.now.to_date
     self.transactions.create!(
         amount: amount,
         date: date,
-        location: 'Transfer',
+        location: location.capitalize,
         account: transfer_params[account.to_sym],
         prev_balance: self.amount_in(transfer_params[account.to_sym]),
         new_balance: self.calculate_balance(transfer_params[account.to_sym], transfer_params[:amount], type)

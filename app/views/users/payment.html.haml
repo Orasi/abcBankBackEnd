@@ -7,23 +7,22 @@
   .background
     .black
       .white-background.transfer-fields
-        %h2 Transfers
+        %h2 Pay Credit Card
 
         = form_for :transfer, method: 'post', url: transfer_user_path do |t|
 
-          = t.label "Transfer Amount"
-          = t.text_field :amount, required: true, placeholder: 'Transfer Amount', type: 'number'
+          = t.label "Payment Amount"
+          = t.text_field :amount, required: true, placeholder: 'Payment Amount', type: 'number'
 
           = t.label :from_account
           = t.select(:from_account, [%w(Checking checking_balance), %w(Savings savings_balance)])
 
-          = t.label :to_account
-          = t.select(:to_account, [%w(Checking checking_balance), %w(Savings savings_balance), %w(Credit credit_balance)])
+          = t.hidden_field(:to_account, value: 'credit_balance')
 
           = hidden_field_tag(:hybrid, @hybrid)
-          = hidden_field_tag(:type, 'transfer')
+          = hidden_field_tag(:type, 'payment')
           %p
-            = t.submit 'Transfer'
+            = t.submit 'Make Payment'
 
   :javascript
     $('#transfer_amount').focusout(function(){

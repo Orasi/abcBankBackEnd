@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       get 'history/:account' => 'users#history', as: :account_summary
       get 'transfer_page'
       post 'transfer'
-      get 'report'
+      get 'payment'
       get '(/:format)' => 'users#show'
     end
   end

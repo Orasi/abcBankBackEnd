@@ -41,13 +41,13 @@
         .options
           = link_to 'History', history_user_path(format: @hybrid), class: 'ui-shadow ui-btn ui-corner-all nav-buttons', 'data-transition' => 'flip'
           = link_to 'Transfer', transfer_page_user_path(format: @hybrid), class: 'ui-shadow ui-btn ui-corner-all nav-buttons', 'data-transition' => 'flip'
-          = link_to 'Make Report', report_user_path(format: @hybrid), class: 'ui-shadow ui-btn ui-corner-all nav-buttons', 'data-transition' => 'flip'
+          = link_to 'Pay Credit Card', payment_user_path(format: @hybrid), class: 'ui-shadow ui-btn ui-corner-all nav-buttons', 'data-transition' => 'flip'
 
 
   :javascript
     if ("#{@hybrid}" != "true")
       $('.ui-btn').attr('data-transition', 'fade')
       $('.main_page').addClass("mobile_web")
-    
+
 
 

@@ -26,6 +26,10 @@ class UsersController < ApplicationController
   def edit
   end
 
+  def payment
+    @hybrid = true if params[:format]
+    @id = params[:id]
+  end
   # POST /users
   # POST /users.json
   def create
@@ -84,7 +88,7 @@ class UsersController < ApplicationController
     transaction.prev_balance = @user.amount_in(transfer_params[:from_account])
     transaction.new_balance = @user.amount_in(transfer_params[:from_account]) - transfer_params[:amount].to_i
     if transaction.save
-      @user.create_transaction(transfer_params)
+      @user.create_transaction(transfer_params, params[:type])
       flash[:success] = 'Transfer Completed'
     else
       flash[:error] = 'Transfer Failed'

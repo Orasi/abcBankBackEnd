@@ -102,7 +102,7 @@ class UsersController < ApplicationController
   end
 
   def complete
-    @hybrid = params[:hybrid]
+    @hybrid = params[:format]
     @type = params[:type]
     @transfer = params[:transfer]
     @id = params[:id]

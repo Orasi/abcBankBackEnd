@@ -80,3 +80,12 @@ td{
   background-image: image_url('online_banking.png') !important;
   background-size: cover;
 }
+.complete_balance{
+  padding: 20px;
+
+  .small{
+    margin: 50px;
+    font-weight: normal;
+
+  }
+}

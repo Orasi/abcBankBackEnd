@@ -94,11 +94,20 @@ class UsersController < ApplicationController
       flash[:error] = 'Transfer Failed'
     end
 
-    redirect_to balances_path(format: @hybrid)
+    redirect_to complete_user_path(format: @hybrid, type: params[:type], transfer: transfer_params, prev: transaction.prev_balance, new: transaction.new_balance)
   end
 
   def report
 
+  end
+
+  def complete
+    @hybrid = params[:hybrid]
+    @type = params[:type]
+    @transfer = params[:transfer]
+    @id = params[:id]
+    @prev = params[:prev]
+    @new = params[:new]
   end
 
   private

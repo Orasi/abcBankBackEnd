@@ -6,13 +6,14 @@ Rails.application.routes.draw do
   get 'users/:id', to: 'users#show', as: :balances
   resources :users do
     member do
-
+      get 'complete' => 'users#complete', as: :complete
       get 'history'
       get 'history/:account' => 'users#history', as: :account_summary
       get 'transfer_page'
       post 'transfer'
       get 'payment'
       get '(/:format)' => 'users#show'
+
     end
   end
 

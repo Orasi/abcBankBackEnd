@@ -1,0 +1,44 @@
+- @transfer[:from_account] = @transfer[:from_account].split('_')[0]
+- @transfer[:to_account] = @transfer[:to_account].split('_')[0]
+%div.main_page{'data-role'=>'page', 'data-url' => "#{request.path}"}
+  - unless @hybrid
+    %div{'data-role' => 'header', 'data-position' => 'fixed'}
+      %a.ui-btn-left{'data-icon' => 'back', 'data-rel' => 'back'} Back
+      %h1 Online Banking
+      %a.ui-btn-right{'data-icon' => 'home', 'href' => '/users/' + @id} Home
+  .background
+    .black
+
+      .ui-corner-all.rounded-corner
+        .white-background
+          %h2{id: 'completed', style:'margin:10px'}
+            = "#{@type.capitalize} Completed"
+          - if @type == 'payment'
+            - verb = 'paid'
+            - amount = number_to_currency @transfer[:amount]
+            - to = @transfer[:to_account].capitalize
+            - from = @transfer[:from_account].capitalize
+            - message = "#{number_to_currency @transfer[:amount]} was successfully paid from #{ @transfer[:from_account].capitalize} to Credit"
+          - else
+            - message = "#{number_to_currency @transfer[:amount]} was successfully transfered from #{ @transfer[:from_account].capitalize} to #{ @transfer[:to_account].capitalize}"
+          %h4{style: 'margin: 20px;'}
+            %span#amount= "#{number_to_currency @transfer[:amount]}"
+            %span= " was successfully "
+            %span#action_verb= verb
+            %span= " from "
+            %span#from_account= from
+            %span= " to "
+            %span#to_account= to
+
+          %h4.complete_balance{style: 'margin: 30px;'}
+            Previous Balance
+            .small{style: 'font-weight: normal; margin-left: 50px;padding: 8px;'}
+              = number_to_currency @prev
+          %h4.complete_balance{style: 'margin: 30px;'}
+            New Balance
+            .small{style: 'font-weight: normal; margin-left: 50px;padding: 8px;'}
+              = number_to_currency @new
+  :javascript
+    if ("#{@hybrid}" != "true")
+      $('.ui-btn').attr('data-transition', 'fade')
+      $('.main_page').addClass("mobile_web")

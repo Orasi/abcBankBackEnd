@@ -13,16 +13,15 @@
         .white-background
           %h2{id: 'completed', style:'margin:10px'}
             = "#{@type.capitalize} Completed"
+          - amount = number_to_currency @transfer[:amount]
+          - to = @transfer[:to_account].capitalize
+          - from = @transfer[:from_account].capitalize
           - if @type == 'payment'
             - verb = 'paid'
-            - amount = number_to_currency @transfer[:amount]
-            - to = @transfer[:to_account].capitalize
-            - from = @transfer[:from_account].capitalize
-            - message = "#{number_to_currency @transfer[:amount]} was successfully paid from #{ @transfer[:from_account].capitalize} to Credit"
           - else
-            - message = "#{number_to_currency @transfer[:amount]} was successfully transfered from #{ @transfer[:from_account].capitalize} to #{ @transfer[:to_account].capitalize}"
+            - verb = 'transferred'
           %h4{style: 'margin: 20px;'}
-            %span#amount= "#{number_to_currency @transfer[:amount]}"
+            %span#amount= amount
             %span= " was successfully "
             %span#action_verb= verb
             %span= " from "

@@ -31,11 +31,11 @@
 
           %h4.complete_balance{style: 'margin: 30px;'}
             Previous Balance
-            .small{style: 'font-weight: normal; margin-left: 50px;padding: 8px;'}
+            #prev_balance{style: 'font-weight: normal; margin-left: 50px;padding: 8px;'}
               = number_to_currency @prev
           %h4.complete_balance{style: 'margin: 30px;'}
             New Balance
-            .small{style: 'font-weight: normal; margin-left: 50px;padding: 8px;'}
+            #new_balance{style: 'font-weight: normal; margin-left: 50px;padding: 8px;'}
               = number_to_currency @new
   :javascript
     if ("#{@hybrid}" != "true")

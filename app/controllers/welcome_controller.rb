@@ -5,6 +5,7 @@ class WelcomeController < ApplicationController
   end
 
   def validate
+    params[:user][:username].downcase!
     @user = User.find_by(username: params[:user][:username])
     respond_to do |format|
       if @user.nil?

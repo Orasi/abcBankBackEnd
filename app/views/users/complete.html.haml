@@ -29,11 +29,11 @@
             %span= " to "
             %span#to_account= to
 
-          %h4.complete_balance{style: 'margin: 30px;'}
+          %h4.complete_balance{style: 'margin-left: 20px;'}
             Previous Balance
             #prev_balance{style: 'font-weight: normal; margin-left: 50px;padding: 8px;'}
               = number_to_currency @prev
-          %h4.complete_balance{style: 'margin-bottom: 30px;'}
+          %h4.complete_balance{style: 'margin-left: 30px;'}
             New Balance
             #new_balance{style: 'font-weight: normal; margin-left: 50px;padding: 8px;'}
               = number_to_currency @new

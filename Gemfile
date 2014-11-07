@@ -43,6 +43,6 @@ group :development do
 end
 gem 'jquery_mobile_rails'
 gem 'haml'
-gem 'rvm1-capistrano3', :require => false
+
 gem 'capistrano-rails'
 gem 'useragent'
